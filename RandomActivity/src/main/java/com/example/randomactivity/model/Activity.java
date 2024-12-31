@@ -16,6 +16,8 @@ public class Activity {
 
     private String category;
 
+    private String details;
+
     //gettery settery
 
 
@@ -41,5 +43,13 @@ public class Activity {
 
     public void setCategory(String category){
         this.category=category;
+    }
+
+    public String getDetails(){
+        return details;
+    }
+
+    public void setDetails(String details){
+        this.details=details;
     }
 }
