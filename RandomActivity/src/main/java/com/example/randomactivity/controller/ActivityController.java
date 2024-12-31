@@ -2,8 +2,10 @@ package com.example.randomactivity.controller;
 
 import com.example.randomactivity.model.Activity;
 import com.example.randomactivity.model.Favorite;
+import com.example.randomactivity.model.History;
 import com.example.randomactivity.repository.ActivityRepository;
 import com.example.randomactivity.repository.FavoriteRepository;
+import com.example.randomactivity.repository.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ public class ActivityController {
     private ActivityRepository activityRepository;
     @Autowired
     private FavoriteRepository favoriteRepository;
+    @Autowired
+    private HistoryRepository historyRepository;
 
     @GetMapping("/test")
     public String testRepository(){
@@ -54,5 +58,16 @@ public class ActivityController {
         return "Activity with ID "+activityId+ " added to favorites.";
     }
 
+    @PostMapping("/history")
+    public String addToHistory(@RequestParam Long activityId){
+        Activity activity=activityRepository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activity not found with ID: "+ activityId));
+        String timestamp = java.time.LocalDateTime.now().toString();
+        History history= new History(activityId, timestamp);
+
+        historyRepository.save(history);
+        return "Activity with ID " + activityId + " added to history.";
+
+    }
 
 }
