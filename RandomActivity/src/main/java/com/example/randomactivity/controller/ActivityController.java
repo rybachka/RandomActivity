@@ -38,7 +38,6 @@ public class ActivityController {
         }
         return activities;
     }
-
     @GetMapping("/activities/random")
     public Object getRandomActivity(){
         Activity randomActivity= activityRepository.findRandomActivity();
@@ -47,7 +46,6 @@ public class ActivityController {
         }
         return randomActivity;
     }
-
     @PostMapping("/favorites")
     public String addToFavorites(@RequestParam Long activityId){
         Activity activity=activityRepository.findById(activityId)
@@ -57,7 +55,6 @@ public class ActivityController {
         favoriteRepository.save(favorite);
         return "Activity with ID "+activityId+ " added to favorites.";
     }
-
     @PostMapping("/history")
     public String addToHistory(@RequestParam Long activityId){
         Activity activity=activityRepository.findById(activityId)
@@ -67,7 +64,22 @@ public class ActivityController {
 
         historyRepository.save(history);
         return "Activity with ID " + activityId + " added to history.";
-
+    }
+    @GetMapping("/favorites")
+    public Object getFavorites(){
+        List<Favorite> favorites = favoriteRepository.findAll();
+        if(favorites.isEmpty()) {
+            throw new IllegalArgumentException("There are no favorites");
+        }
+        return favorites;
+    }
+    @GetMapping("/history")
+    public Object getHistory(){
+        List<History> historyList = historyRepository.findAll();
+        if(historyList.isEmpty()) {
+            throw new IllegalArgumentException("There are no history");
+        }
+        return historyList;
     }
 
 }
