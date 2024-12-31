@@ -1,5 +1,6 @@
 package com.example.randomactivity.model;
 import jakarta.persistence.*;
+@Entity
 public class Favorite {
 
     @Id

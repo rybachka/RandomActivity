@@ -1,11 +1,11 @@
 package com.example.randomactivity.controller;
 
 import com.example.randomactivity.model.Activity;
+import com.example.randomactivity.model.Favorite;
 import com.example.randomactivity.repository.ActivityRepository;
+import com.example.randomactivity.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private FavoriteRepository favoriteRepository;
 
     @GetMapping("/test")
     public String testRepository(){
@@ -25,13 +27,14 @@ public class ActivityController {
         return "Activity saved with ID: " + activity.getId();
     }
     @GetMapping("/activities")
-    public Object getAllActivities() {
+    public List<Activity> getAllActivities() {
         List<Activity> activities = activityRepository.findAll();
-        if (activities.isEmpty()){
-            return "There are no records";
+        if (activities.isEmpty()) {
+            throw new IllegalArgumentException("There are no records.");
         }
         return activities;
     }
+
     @GetMapping("/activities/random")
     public Object getRandomActivity(){
         Activity randomActivity= activityRepository.findRandomActivity();
@@ -40,5 +43,16 @@ public class ActivityController {
         }
         return randomActivity;
     }
+
+    @PostMapping("/favorites")
+    public String addToFavorites(@RequestParam Long activityId){
+        Activity activity=activityRepository.findById(activityId)
+                .orElseThrow(() -> new IllegalArgumentException("Activity with ID " + activityId + "NOT FOUND. "));
+        Favorite favorite=new Favorite();
+        favorite.setActivityId(activityId);
+        favoriteRepository.save(favorite);
+        return "Activity with ID "+activityId+ " added to favorites.";
+    }
+
 
 }
