@@ -18,6 +18,8 @@ public class Activity {
 
     private String details;
 
+    private String link;
+
     //gettery settery
 
 
@@ -53,5 +55,11 @@ public class Activity {
         this.details=details;
     }
 
+    public String getLink() {
+        return link;
+    }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

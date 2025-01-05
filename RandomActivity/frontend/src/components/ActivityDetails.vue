@@ -8,6 +8,11 @@
         <h2 class="activity-name">{{ activity.name }}</h2>
         <p><strong>Category:</strong> {{ activity.category }}</p>
         <p><strong>Details:</strong> {{ activity.details }}</p>
+        <p v-if="activity.link">
+          <strong>Video:</strong>
+          <a :href="activity.link" target="_blank" rel="noopener noreferrer">{{ activity.link }}</a>
+        </p>
+
       </div>
       <div class="button-group">
         <button
