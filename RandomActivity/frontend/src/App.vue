@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <ActivitiesList />
+    <router-view />
   </div>
 </template>
 
 <script>
-import ActivitiesList from './components/ActivitiesList.vue';
-
-
 export default {
-  components: {
-    ActivitiesList,
-  },
+  name: 'App',
 };
 </script>
 
+<style>
+/* Opcjonalny styl */
+</style>

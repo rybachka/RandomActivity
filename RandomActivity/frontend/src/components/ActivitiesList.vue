@@ -9,6 +9,7 @@
         <strong>{{ activity.name }}</strong> - {{ activity.category }}
       </li>
     </ul>
+    <button @click="goToRandomActivity">Generate random activity</button>
   </div>
 </template>
 
@@ -25,28 +26,19 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('/activities');
+      const response = await axios.get("/activities");
       this.activities = response.data;
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        this.error = error.response.data.message;
-      } else {
-        this.error = 'Failed to fetch activities. Please try again later.';
-      }
+      this.error = "Failed to fetch activities. Please try again later.";
     } finally {
       this.loading = false;
     }
   },
+  methods: {
+    goToRandomActivity() {
+      this.$router.push({ name: 'RandomActivity' });
+    },
+  },
+
 };
 </script>
-
-<style>
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-</style>
