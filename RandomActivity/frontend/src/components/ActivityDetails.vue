@@ -7,6 +7,7 @@
       <h2>{{ activity.name }}</h2>
       <p><strong>Category:</strong> {{ activity.category }}</p>
       <p><strong>Details:</strong> {{ activity.details }}</p>
+      <button @click="addToFavorites">Add to Favorite</button>
       <button @click="goBack">Back to List</button>
     </div>
   </div>
@@ -35,6 +36,17 @@ export default {
     }
   },
   methods: {
+    async addToFavorites() {
+      try {
+        await axios.post("/favorites", null, {
+          params: { activityId: this.activity.id },
+        });
+        alert(`Activity "${this.activity.name}" added to favorites!`);
+      } catch (error) {
+        console.error("Failed to add activity to favorites:", error);
+        alert("An error occurred while adding the activity to favorites.");
+      }
+    },
     goBack() {
       this.$router.push({ name: 'Home' });
     },

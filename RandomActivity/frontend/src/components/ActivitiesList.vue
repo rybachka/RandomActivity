@@ -20,6 +20,8 @@
     </ul>
     <button @click="goToRandomActivity">Generate random activity</button>
     <button @click="goToHistory">History</button>
+    <button @click="goToFavorites">Favorites</button>
+
   </div>
 </template>
 
@@ -75,6 +77,11 @@ export default {
     goToHistory() {
       this.$router.push({ name: 'ActivityHistory' });
     },
+    goToFavorites() {
+      this.$router.push({ name: "ActivityFavorites" });
+    },
+
+
   },
 };
 </script>

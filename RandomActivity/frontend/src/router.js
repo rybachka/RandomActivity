@@ -3,7 +3,7 @@ import ActivitiesList from './components/ActivitiesList.vue';
 import RandomActivity from './components/RandomActivity.vue';
 import ActivityDetails from './components/ActivityDetails.vue';
 import ActivityHistory from './components/ActivityHistory.vue';
-
+import ActivityFavorites from './components/ActivityFavorites.vue';
 const routes = [
     {
         path: '/',
@@ -25,6 +25,11 @@ const routes = [
         name: 'ActivityHistory',
         component: ActivityHistory,
 
+    },
+    {
+        path: "/favorites",
+        name: "ActivityFavorites",
+        component: ActivityFavorites,
     },
 ];
 
