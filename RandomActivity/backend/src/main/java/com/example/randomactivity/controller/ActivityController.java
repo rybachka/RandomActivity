@@ -49,14 +49,23 @@ public class ActivityController {
         return randomActivity;
     }
     @PostMapping("/favorites")
-    public String addToFavorites(@RequestParam Long activityId){
-        Activity activity=activityRepository.findById(activityId)
-                .orElseThrow(() -> new IllegalArgumentException("Activity with ID " + activityId + "NOT FOUND. "));
-        Favorite favorite=new Favorite();
+    public String addToFavorites(@RequestParam Long activityId) {
+        Activity activity = activityRepository.findById(activityId)
+                .orElseThrow(() -> new IllegalArgumentException("Activity with ID " + activityId + " NOT FOUND."));
+
+        boolean alreadyExists = favoriteRepository.existsByActivityId(activityId);
+
+        if (alreadyExists) {
+            return "Activity with ID " + activityId + " is already in favorites.";
+        }
+
+        Favorite favorite = new Favorite();
         favorite.setActivityId(activityId);
         favoriteRepository.save(favorite);
-        return "Activity with ID "+activityId+ " added to favorites.";
+
+        return "Activity with ID " + activityId + " added to favorites.";
     }
+
     @PostMapping("/history")
     public String addToHistory(@RequestParam Long activityId){
         Activity activity=activityRepository.findById(activityId)

@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0c5de97b-f42d-41e0-ba57-9f39ad08def8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/DatabaseInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/controller/ActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/repository/FavoriteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/backend/src/main/java/com/example/randomactivity/repository/FavoriteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityDetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityDetails.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityFavorites.vue" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityFavorites.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityHistory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/RandomActivity/frontend/src/components/ActivityHistory.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +91,7 @@
       <workItem from="1736077588002" duration="21000" />
       <workItem from="1736077617042" duration="13000" />
       <workItem from="1736077720971" duration="15000" />
-      <workItem from="1736077759607" duration="25509000" />
+      <workItem from="1736077759607" duration="26492000" />
     </task>
     <servers />
   </component>

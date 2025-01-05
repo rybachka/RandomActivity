@@ -42,7 +42,7 @@ export default {
       });
       this.enrichedHistory = await Promise.all(promises);
     } catch (error) {
-      this.error = "Failed to fetch history. Please try again later.";
+      this.error = "Failed to fetch history. Start browsing activities or try again later.";
     } finally {
       this.loading = false;
     }

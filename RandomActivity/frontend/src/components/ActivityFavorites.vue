@@ -55,7 +55,7 @@ export default {
 
       this.enrichedFavorites = await Promise.all(promises);
     } catch (error) {
-      this.error = "Failed to fetch favorites. Please try again later.";
+      this.error = "Failed to fetch favorites. Please add new activity to your list or try again later.";
     } finally {
       this.loading = false;
     }
@@ -90,11 +90,15 @@ export default {
 }
 
 .loading,
-.error,
 .empty-message {
   text-align: center;
   font-size: 16px;
   color: #555;
+}
+.error {
+  text-align: center;
+  color: red;
+  font-size: 18px;
 }
 
 .card-list {

@@ -53,12 +53,15 @@ export default {
         const response = await axios.post("/favorites", null, {
           params: { activityId: this.activity.id },
         });
-        if (response.status === 200) {
+
+        if (response.data.includes("is already in favorites")) {
+          alert(`Activity "${this.activity.name}" is already in your favorites.`);
+        } else {
           alert(`Activity "${this.activity.name}" added to favorites!`);
         }
       } catch (error) {
         console.error("Failed to add activity to favorites:", error);
-        alert("This activity is already in your favorites.");
+        alert("An error occurred while adding the activity to favorites.");
       }
     },
     goBack() {
