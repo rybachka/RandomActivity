@@ -10,7 +10,13 @@
         <p><strong>Details:</strong> {{ activity.details }}</p>
       </div>
       <div class="button-group">
-        <button @click="addToFavorites" class="btn btn-favorite">Add to Favorite</button>
+        <button
+            v-if="!fromFavorites"
+            @click="addToFavorites"
+            class="btn btn-favorite"
+        >
+          Add to Favorite
+        </button>
         <button @click="goBack" class="btn btn-back">Back to List</button>
       </div>
     </div>
@@ -18,7 +24,7 @@
 </template>
 
 <script>
-import axios from '../axios';
+import axios from "../axios";
 
 export default {
   data() {
@@ -26,15 +32,17 @@ export default {
       activity: null,
       loading: true,
       error: null,
+      fromFavorites: false, // Flag to check if navigating from Favorites
     };
   },
   async created() {
     try {
       const { id } = this.$route.params;
+      this.fromFavorites = this.$route.params.fromFavorites || false; // Check if coming from Favorites
       const response = await axios.get(`/activities/${id}`);
       this.activity = response.data;
     } catch (error) {
-      this.error = 'Failed to fetch activity details. Please try again later.';
+      this.error = "Failed to fetch activity details. Please try again later.";
     } finally {
       this.loading = false;
     }
@@ -42,17 +50,19 @@ export default {
   methods: {
     async addToFavorites() {
       try {
-        await axios.post('/favorites', null, {
+        const response = await axios.post("/favorites", null, {
           params: { activityId: this.activity.id },
         });
-        alert(`Activity "${this.activity.name}" added to favorites!`);
+        if (response.status === 200) {
+          alert(`Activity "${this.activity.name}" added to favorites!`);
+        }
       } catch (error) {
-        console.error('Failed to add activity to favorites:', error);
-        alert('An error occurred while adding the activity to favorites.');
+        console.error("Failed to add activity to favorites:", error);
+        alert("This activity is already in your favorites.");
       }
     },
     goBack() {
-      this.$router.push({ name: 'Home' });
+      this.$router.push({ name: "Home" });
     },
   },
 };

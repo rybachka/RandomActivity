@@ -5,9 +5,20 @@
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else-if="favorites.length === 0" class="empty-message">No favorites found.</div>
     <div v-else class="card-list">
-      <div v-for="favorite in enrichedFavorites" :key="favorite.id" class="card">
-        <p><strong>Activity:</strong> {{ favorite.activityName }}</p>
-        <p><strong>ID:</strong> {{ favorite.activityId }}</p>
+      <div
+          v-for="(favorite, index) in enrichedFavorites"
+          :key="favorite.id"
+          class="card"
+      >
+        <p @click="toggleDetails(index)" class="activity-title">
+          <strong>Activity:</strong> {{ favorite.activityName }}
+          <span v-if="expandedIndex === index" class="toggle-icon">▲</span>
+          <span v-else class="toggle-icon">▼</span>
+        </p>
+        <div v-if="expandedIndex === index" class="activity-details">
+          <p><strong>Category:</strong> {{ favorite.category }}</p>
+          <p><strong>Details:</strong> {{ favorite.details }}</p>
+        </div>
       </div>
     </div>
     <button class="back-button" @click="goBack">Back to List</button>
@@ -22,6 +33,7 @@ export default {
     return {
       favorites: [],
       enrichedFavorites: [],
+      expandedIndex: null, // Przechowuje indeks rozwiniętej aktywności
       loading: true,
       error: null,
     };
@@ -36,6 +48,8 @@ export default {
         return {
           ...favorite,
           activityName: activityResponse.data.name,
+          category: activityResponse.data.category,
+          details: activityResponse.data.details,
         };
       });
 
@@ -47,6 +61,9 @@ export default {
     }
   },
   methods: {
+    toggleDetails(index) {
+      this.expandedIndex = this.expandedIndex === index ? null : index; // Przełączanie rozwijania
+    },
     goBack() {
       this.$router.push({ name: "Home" });
     },
@@ -54,7 +71,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -92,6 +109,23 @@ export default {
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activity-title {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.toggle-icon {
+  float: right;
+  font-size: 12px;
+}
+
+.activity-details {
+  padding-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
 .back-button {
