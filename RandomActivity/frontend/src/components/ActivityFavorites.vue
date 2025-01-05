@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <h1>Favorites</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else-if="favorites.length === 0">No favorites found.</div>
-    <ul v-else>
-      <li v-for="favorite in enrichedFavorites" :key="favorite.id">
-        <strong>Activity:</strong> {{ favorite.activityName }}
-        <span>(ID: {{ favorite.activityId }})</span>
-      </li>
-    </ul>
-    <button @click="goBack">Back to List</button>
+  <div class="container">
+    <h1 class="title">Favorites</h1>
+    <div v-if="loading" class="loading">Loading...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <div v-else-if="favorites.length === 0" class="empty-message">No favorites found.</div>
+    <div v-else class="card-list">
+      <div v-for="favorite in enrichedFavorites" :key="favorite.id" class="card">
+        <p><strong>Activity:</strong> {{ favorite.activityName }}</p>
+        <p><strong>ID:</strong> {{ favorite.activityId }}</p>
+      </div>
+    </div>
+    <button class="back-button" @click="goBack">Back to List</button>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
       const response = await axios.get("/favorites");
       this.favorites = response.data;
 
-      // Pobierz szczegóły aktywności dla każdej ulubionej aktywności
       const promises = this.favorites.map(async (favorite) => {
         const activityResponse = await axios.get(`/activities/${favorite.activityId}`);
         return {
@@ -56,9 +55,48 @@ export default {
 </script>
 
 <style>
-/* Styl opcjonalny */
-button {
-  margin-top: 20px;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #efdcf7;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.loading,
+.error,
+.empty-message {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+  display: block;
+  margin: 20px auto 0;
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
@@ -66,8 +104,10 @@ button {
   background-color: #007bff;
   color: white;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
-button:hover {
+
+.back-button:hover {
   background-color: #0056b3;
 }
 </style>

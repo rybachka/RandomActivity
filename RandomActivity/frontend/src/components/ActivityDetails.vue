@@ -1,14 +1,18 @@
 <template>
-  <div>
-    <h1>Activity Details</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
+  <div class="container">
+    <h1 class="title">Activity Details</h1>
+    <div v-if="loading" class="message">Loading...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else>
-      <h2>{{ activity.name }}</h2>
-      <p><strong>Category:</strong> {{ activity.category }}</p>
-      <p><strong>Details:</strong> {{ activity.details }}</p>
-      <button @click="addToFavorites">Add to Favorite</button>
-      <button @click="goBack">Back to List</button>
+      <div class="activity-details">
+        <h2 class="activity-name">{{ activity.name }}</h2>
+        <p><strong>Category:</strong> {{ activity.category }}</p>
+        <p><strong>Details:</strong> {{ activity.details }}</p>
+      </div>
+      <div class="button-group">
+        <button @click="addToFavorites" class="btn btn-favorite">Add to Favorite</button>
+        <button @click="goBack" class="btn btn-back">Back to List</button>
+      </div>
     </div>
   </div>
 </template>
@@ -38,13 +42,13 @@ export default {
   methods: {
     async addToFavorites() {
       try {
-        await axios.post("/favorites", null, {
+        await axios.post('/favorites', null, {
           params: { activityId: this.activity.id },
         });
         alert(`Activity "${this.activity.name}" added to favorites!`);
       } catch (error) {
-        console.error("Failed to add activity to favorites:", error);
-        alert("An error occurred while adding the activity to favorites.");
+        console.error('Failed to add activity to favorites:', error);
+        alert('An error occurred while adding the activity to favorites.');
       }
     },
     goBack() {
@@ -53,3 +57,73 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #efdcf7;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.activity-details {
+  margin-bottom: 20px;
+}
+
+.activity-name {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.message {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: 18px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-favorite {
+  background-color: hotpink;
+  color: white;
+}
+
+.btn-favorite:hover {
+  background-color: deeppink;
+}
+
+.btn-back {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #5a6268;
+}
+</style>
