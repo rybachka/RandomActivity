@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ActivitiesList from './components/ActivitiesList.vue';
 import RandomActivity from './components/RandomActivity.vue';
 import ActivityDetails from './components/ActivityDetails.vue';
+import ActivityHistory from './components/ActivityHistory.vue';
 
 const routes = [
     {
@@ -18,6 +19,12 @@ const routes = [
         path: '/activities/:id',
         name: 'ActivityDetails',
         component: ActivityDetails,
+    },
+    {
+        path: '/history',
+        name: 'ActivityHistory',
+        component: ActivityHistory,
+
     },
 ];
 

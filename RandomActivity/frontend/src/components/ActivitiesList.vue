@@ -12,15 +12,14 @@
     </div>
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
-    <div v-else-if="filteredActivities.length === 0">No activities found.</div>
+    <div v-else-if="activities.length === 0">No activities found.</div>
     <ul v-else>
-      <li v-for="activity in filteredActivities" :key="activity.id">
-        <router-link :to="{ name: 'ActivityDetails', params: { id: activity.id }}">
-          <strong>{{ activity.name }}</strong> - {{ activity.category }}
-        </router-link>
+      <li v-for="activity in filteredActivities" :key="activity.id" @click="viewDetails(activity)">
+        <strong>{{ activity.name }}</strong> - {{ activity.category }}
       </li>
     </ul>
     <button @click="goToRandomActivity">Generate random activity</button>
+    <button @click="goToHistory">History</button>
   </div>
 </template>
 
@@ -40,11 +39,11 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('/activities');
+      const response = await axios.get("/activities");
       this.activities = response.data;
       this.filteredActivities = this.activities;
     } catch (error) {
-      this.error = 'Failed to fetch activities. Please try again later.';
+      this.error = "Failed to fetch activities. Please try again later.";
     } finally {
       this.loading = false;
     }
@@ -59,8 +58,22 @@ export default {
         this.filteredActivities = this.activities;
       }
     },
+    async viewDetails(activity) {
+      try {
+        await axios.post('/history', null, {
+          params: { activityId: activity.id },
+        });
+        console.log(`Activity with ID ${activity.id} added to history.`);
+        this.$router.push({ name: 'ActivityDetails', params: { id: activity.id } });
+      } catch (error) {
+        console.error("Failed to add to history:", error);
+      }
+    },
     goToRandomActivity() {
       this.$router.push({ name: 'RandomActivity' });
+    },
+    goToHistory() {
+      this.$router.push({ name: 'ActivityHistory' });
     },
   },
 };
