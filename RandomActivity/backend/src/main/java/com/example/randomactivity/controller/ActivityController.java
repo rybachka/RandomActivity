@@ -84,4 +84,10 @@ public class ActivityController {
         return historyList;
     }
 
+    @GetMapping("/activities/{id}")
+    public Activity getActivityById(@PathVariable Long id){
+        return activityRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Activity with ID" + id + "not found."));
+    }
+
 }

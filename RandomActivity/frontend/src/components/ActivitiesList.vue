@@ -15,7 +15,9 @@
     <div v-else-if="filteredActivities.length === 0">No activities found.</div>
     <ul v-else>
       <li v-for="activity in filteredActivities" :key="activity.id">
-        <strong>{{ activity.name }}</strong> - {{ activity.category }}
+        <router-link :to="{ name: 'ActivityDetails', params: { id: activity.id }}">
+          <strong>{{ activity.name }}</strong> - {{ activity.category }}
+        </router-link>
       </li>
     </ul>
     <button @click="goToRandomActivity">Generate random activity</button>
