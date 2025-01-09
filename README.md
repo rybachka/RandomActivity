@@ -1,113 +1,149 @@
-# RandomActivity
-Random Activity App to aplikacja, która pozwala użytkownikom przeglądać, losować, oraz zapisywać ulubione aktywności. Projekt został stworzony z wykorzystaniem technologii Vue.js (frontend), Spring Boot (backend) oraz PostgreSQL (baza danych). Aplikacja działa w środowisku kontenerowym za pomocą Docker Compose.
+# Random Activity App
 
-Funkcjonalności:
-Przeglądanie listy aktywności: Możliwość filtrowania według kategorii i wyświetlania szczegółów.
-Losowanie aktywności: Użytkownik może wylosować losową aktywność za pomocą przycisku.
-Historia aktywności: Automatyczne zapisywanie przeglądanych aktywności do historii.
-Lista ulubionych aktywności: Dodawanie i przeglądanie ulubionych aktywności.
-Szczegóły aktywności: Wyświetlanie szczegółowych informacji o aktywnościach, w tym linków do filmików na YouTube.
+**Random Activity App** to aplikacja, która pozwala użytkownikom przeglądać, losować oraz zapisywać ulubione aktywności. Projekt wykorzystuje **Vue.js** jako frontend, **Spring Boot** jako backend oraz **PostgreSQL** jako bazę danych. Całość działa w kontenerach dzięki **Docker Compose**.
 
-Technologie
-Frontend:
-Vue.js 3
-Axios do komunikacji z backendem
-Bootstrap (opcjonalnie) dla stylizacji komponentów
+## Funkcjonalności
 
-Backend:
-Spring Boot
-REST API
-Hibernate i JPA do zarządzania bazą danych
+- **Przeglądanie listy aktywności**: Możliwość filtrowania według kategorii i wyświetlania szczegółów.
+- **Losowanie aktywności**: Wylosowanie losowej aktywności.
+- **Historia aktywności**: Automatyczne zapisywanie przeglądanych aktywności do historii.
+- **Lista ulubionych aktywności**: Możliwość zapisywania i przeglądania ulubionych aktywności.
+- **Szczegóły aktywności**: Wyświetlanie szczegółowych informacji, w tym linków do filmików na YouTube.
 
-Baza danych:
-PostgreSQL
+---
 
-Konteneryzacja:
-Docker Compose
-Oddzielne kontenery dla backendu, frontendu oraz bazy danych
+## Technologie
 
+### **Frontend:**
+- Vue.js 3
+- Axios (do komunikacji z backendem)
+- Bootstrap (opcjonalnie, do stylizacji)
 
-Instalacja i uruchomienie
-Wymagania wstępne:
-Docker i Docker Compose
-Node.js i npm/yarn (jeśli chcesz pracować lokalnie z frontendem)
-Java 17+ (dla backendu)
+### **Backend:**
+- Spring Boot
+- Hibernate (JPA)
+- REST API
 
+### **Baza danych:**
+- PostgreSQL
 
+### **Konteneryzacja:**
+- Docker Compose
+- Kontenery: backend, frontend, baza danych
 
-Uruchomienie z Docker Compose
+---
+
+## Instalacja i uruchomienie
+
+### Wymagania wstępne
+- Zainstalowany **Docker** i **Docker Compose**
+- **Node.js** z **npm** (opcjonalnie, do lokalnego uruchamiania frontendu)
+- **Java 17+**
+
+### **Uruchomienie z Docker Compose**
 1. Sklonuj repozytorium:
-git clone https://github.com/rybachka/random-activity-app.git
-cd random-activity-app
+    ```bash
+    git clone https://github.com/rybachka/random-activity-app.git
+    cd random-activity-app
+    ```
 
-2. Uruchom aplikację za pomocą Docker Compose:
-docker-compose up --build
+2. Uruchom aplikację:
+    ```bash
+    docker-compose up --build
+    ```
 
-3. Aplikacja frontendowa będzie dostępna pod adresem:
-http://localhost:8081
+3. Frontend aplikacji będzie dostępny pod adresem:
+    [http://localhost:8081](http://localhost:8081)
 
 4. Backend REST API działa pod adresem:
-http://localhost:8080/api
+    [http://localhost:8080/api](http://localhost:8080/api)
 
+---
 
-Lokalny rozwój
-Backend:
-1. Otwórz folder backend i uruchom projekt Spring Boot w swoim IDE.
-2. Skonfiguruj dostęp do bazy danych w application.properties.
-   
-Frontend:
-Otwórz folder frontend:
-cd frontend
+## Lokalny rozwój
 
-Zainstaluj zależności:
-npm install
+### **Backend**
+1. Otwórz folder `backend` w IDE (np. IntelliJ, Eclipse).
+2. Skonfiguruj dostęp do bazy danych w pliku `application.properties`.
+3. Uruchom projekt Spring Boot (np. za pomocą komendy `Run` w IDE).
 
-Uruchom aplikację w trybie deweloperskim:
-npm run serve
+### **Frontend**
+1. Przejdź do folderu `frontend`:
+    ```bash
+    cd frontend
+    ```
 
-Aplikacja frontendowa będzie działać na:
-http://localhost:8080
+2. Zainstaluj zależności:
+    ```bash
+    npm install
+    ```
 
+3. Uruchom w trybie deweloperskim:
+    ```bash
+    npm run serve
+    ```
 
-Struktura projektu:
+4. Aplikacja będzie dostępna pod adresem: 
+    [http://localhost:8080](http://localhost:8080)
+
+---
+
+## Struktura projektu
+
+```plaintext
 random-activity-app/
 │
-├── backend/               # Kod backendu w Spring Boot
-│   ├── src/               # Źródła Java
+├── backend/               # Backend w Spring Boot
+│   ├── src/               # Kod źródłowy w Java
 │   └── Dockerfile         # Konfiguracja kontenera backendu
 │
-├── frontend/              # Kod frontendowy w Vue.js
-│   ├── src/               # Źródła Vue.js
-│   └── Dockerfile         # Konfiguracja kontenera frontendowego
+├── frontend/              # Frontend w Vue.js
+│   ├── src/               # Kod źródłowy Vue.js
+│   └── Dockerfile         # Konfiguracja kontenera frontendu
 │
 ├── db/                    # Skrypty inicjalizacyjne bazy danych
 │
 ├── docker-compose.yml     # Konfiguracja Docker Compose
 │
 └── README.md              # Dokumentacja projektu
+``````
+## REST API
 
+### Endpointy:
 
-REST API
+#### Aktywności
+- **`GET /api/activities`**  
+  Pobiera listę wszystkich aktywności dostępnych w systemie.
 
-Endpointy
+- **`GET /api/activities/random`**  
+  Pobiera losową aktywność z bazy danych.
 
-Aktywności:
-GET /api/activities - Pobiera listę wszystkich aktywności.
-GET /api/activities/random - Pobiera losową aktywność.
-GET /api/activities/{id} - Pobiera szczegóły aktywności o podanym ID.
+- **`GET /api/activities/{id}`**  
+  Pobiera szczegóły aktywności o podanym ID.  
 
-Historia:
-POST /api/history - Dodaje aktywność do historii.
-GET /api/history - Pobiera listę aktywności z historii.
+#### Historia
+- **`POST /api/history`**  
+  Dodaje aktywność do historii przeglądania.  
+  **Parametry**:  
+  - `activityId`: ID aktywności do zapisania w historii.  
 
-Ulubione:
-POST /api/favorites - Dodaje aktywność do ulubionych.
-GET /api/favorites - Pobiera listę ulubionych aktywności.
+- **`GET /api/history`**  
+  Pobiera listę aktywności zapisanych w historii użytkownika.  
 
+#### Ulubione
+- **`POST /api/favorites`**  
+  Dodaje aktywność do ulubionych.  
+  **Parametry**:  
+  - `activityId`: ID aktywności do dodania do ulubionych.  
 
-Autor
-Projekt został opracowany przez rybachka.
+- **`GET /api/favorites`**  
+  Pobiera listę ulubionych aktywności użytkownika.  
 
+---
 
-Licencja
-Projekt jest udostępniony na licencji MIT. Szczegóły w pliku LICENSE.
+### Autor
+Projekt został opracowany przez **rybachka**.
+
+### Licencja
+Projekt jest udostępniony na licencji **MIT**. Szczegóły znajdują się w pliku `LICENSE`.
+
