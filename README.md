@@ -88,7 +88,9 @@ random-activity-app/
 
 
 REST API
+
 Endpointy
+
 Aktywności:
 GET /api/activities - Pobiera listę wszystkich aktywności.
 GET /api/activities/random - Pobiera losową aktywność.
