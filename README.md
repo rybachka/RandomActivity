@@ -144,6 +144,3 @@ random-activity-app/
 ### Autor
 Projekt został opracowany przez **rybachka**.
 
-### Licencja
-Projekt jest udostępniony na licencji **MIT**. Szczegóły znajdują się w pliku `LICENSE`.
-
